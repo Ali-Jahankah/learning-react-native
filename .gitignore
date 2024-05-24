@@ -33,3 +33,8 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+.idea/vcs.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/learning.iml
+.bash_profile
