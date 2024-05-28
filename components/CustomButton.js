@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  TouchableOpacity
+} from 'react-native';
 
 import { changeColorHandler } from '../utils/handlers';
 
 const CustomButton = ({ title, styles }) => {
   const [color, setColor] = useState('#fff');
   return (
-    <TouchableOpacity
+    <TouchableHighlight
       onPress={() => changeColorHandler(setColor)}
       style={{
         ...styles,
@@ -14,7 +19,7 @@ const CustomButton = ({ title, styles }) => {
       }}
     >
       <Text style={buttonStyles.text}>{title}</Text>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 };
 const buttonStyles = StyleSheet.create({
