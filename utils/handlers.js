@@ -15,3 +15,14 @@ export const changeColorHandler = (setColor) => {
   const color = colors[colorIndex];
   setColor(color);
 };
+export const userHandler = (newUser, action, setUsers, users, id) => {
+  if (action === 'add') {
+    setUsers((prev) => {
+      console.log(newUser);
+      return [...prev, newUser];
+    });
+  } else if (action === 'remove') {
+    const filteredUsers = users.filter((item) => item.id !== id);
+    setUsers(filteredUsers);
+  }
+};

@@ -6,16 +6,19 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import { changeColorHandler } from '../utils/handlers';
-
-const CustomButton = ({ title, styles }) => {
+const CustomButton = ({ title, styles, handler, state, handlerType }) => {
   const [color, setColor] = useState('#fff');
+
   return (
     <TouchableHighlight
-      onPress={() => changeColorHandler(setColor)}
+      onPress={
+        handlerType === 'color' ? () => handler(setColor) : () => handler()
+      }
       style={{
         ...styles,
-        backgroundColor: color
+        backgroundColor: !styles.backgroundColor
+          ? color
+          : styles.backgroundColor
       }}
     >
       <Text style={buttonStyles.text}>{title}</Text>
@@ -24,8 +27,9 @@ const CustomButton = ({ title, styles }) => {
 };
 const buttonStyles = StyleSheet.create({
   text: {
-    backgroundColor: '#ffffffb9',
-    color: 'black'
+    color: 'black',
+    fontSize: 15,
+    fontWeight: 'bold'
   }
 });
 export default CustomButton;

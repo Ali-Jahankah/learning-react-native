@@ -1,7 +1,22 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import {
+  Alert,
+  Button,
+  FlatList,
+  Keyboard,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View
+} from 'react-native';
+import React, { useRef, useState } from 'react';
+import { changeColorHandler, userHandler } from './utils/handlers';
 
+import CenterText from './components/CenterText';
 import CustomButton from './components/CustomButton';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const App = () => {
   const [people, setPeople] = useState([
@@ -15,43 +30,182 @@ const App = () => {
     { name: 'Jaber', age: 68, id: 8 },
     { name: 'Mohsen', age: 32, id: 9 }
   ]);
+  const [user, setUser] = useState({ name: '', age: '', id: null });
+
+  const flatListRef = useRef(null);
+  console.log(people);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.textView}>
-        <Text style={styles.text}>Ali Jahankah | Full-Stack Dev</Text>
+    <>
+      <View style={styles.container}>
+        <View style={styles.textView}>
+          <Text style={styles.text}>Ali Jahankah | Full-Stack Dev</Text>
+        </View>
+        <View style={styles.scrollViewWrapper}>
+          <ScrollView
+            horizontal
+            contentContainerStyle={styles.scrollViewContent}
+          >
+            <CustomButton
+              title="Button 1"
+              styles={styles.button}
+              handler={changeColorHandler}
+              handlerType="color"
+            />
+            <CustomButton
+              title="Button 2"
+              styles={styles.button}
+              state={{}}
+              handler={changeColorHandler}
+              handlerType="color"
+            />
+            <CustomButton
+              title="Button 3"
+              styles={styles.button}
+              state={{}}
+              handler={changeColorHandler}
+              handlerType="color"
+            />
+            <CustomButton
+              title="Button 4"
+              styles={styles.button}
+              state={{}}
+              handler={changeColorHandler}
+              handlerType="color"
+            />
+            <CustomButton
+              title="Button 5"
+              styles={styles.button}
+              state={{}}
+              handler={changeColorHandler}
+              handlerType="color"
+            />
+            <CustomButton
+              title="Button 6"
+              styles={styles.button}
+              state={{}}
+              handler={changeColorHandler}
+              handlerType="color"
+            />
+            <CustomButton
+              title="Button 7"
+              styles={styles.button}
+              state={{}}
+              handler={changeColorHandler}
+              handlerType="color"
+            />
+            <CustomButton
+              title="Button 8"
+              styles={styles.button}
+              state={{}}
+              handler={changeColorHandler}
+              handlerType="color"
+            />
+          </ScrollView>
+        </View>
+        <CenterText text="Below is a FlatList component"></CenterText>
+        <Button
+          title="jump to last index"
+          onPress={() =>
+            flatListRef.current.scrollToIndex({
+              animated: true,
+              index: people.length - 1
+            })
+          }
+        />
+        <CenterText text={`Name: ${user.name}`} />
+        <CenterText text={`Age: ${user.age}`} />
+        <TextInput
+          style={styles.userInputs}
+          value={user.name}
+          placeholder="--- Name ---"
+          onChangeText={(val) =>
+            setUser((prev) => {
+              return { ...prev, name: val };
+            })
+          }
+        />
+        <TextInput
+          style={styles.userInputs}
+          value={user.age}
+          placeholder="--- Age ---"
+          onChangeText={(val) => {
+            console.log(val);
+            if (Number(val) || !val) {
+              setUser((prev) => {
+                return { ...prev, age: val };
+              });
+            } else {
+              Alert.alert('Input Error:', 'Value must be a number', [
+                {
+                  text: 'Understood',
+                  onPress: () => console.log('Understood')
+                },
+                { text: 'Close', onPress: () => console.log('Closed') }
+              ]);
+            }
+          }}
+          keyboardType="numeric"
+        />
+        <CustomButton
+          title="Add user"
+          styles={{
+            ...styles.button,
+            borderRadius: 10,
+            marginLeft: 'auto',
+            width: 100,
+            marginRight: 'auto',
+            backgroundColor: '#18e295'
+          }}
+          state={{}}
+          handlerType="user"
+          handler={() => {
+            userHandler(
+              {
+                name: user.name,
+                age: user.age,
+                id: people.length ? Number(people[people.length - 1].id + 1) : 1
+              },
+              'add',
+              setPeople,
+              people,
+              null
+            );
+            setUser({ name: '', age: '', id: null });
+          }}
+        ></CustomButton>
+
+        <FlatList
+          ref={flatListRef}
+          style={styles.usersList}
+          data={people}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.card}>
+              <Text style={styles.cardText}>{item.name}</Text>
+              <MaterialCommunityIcons
+                name="delete"
+                size={30}
+                color="#ec451f"
+                onPress={() =>
+                  userHandler(null, 'remove', setPeople, people, item.id)
+                }
+              />
+            </View>
+          )}
+        />
       </View>
-      <View style={styles.scrollViewWrapper}>
-        <ScrollView horizontal contentContainerStyle={styles.scrollViewContent}>
-          <CustomButton title="Button 1" styles={styles.button} />
-          <CustomButton title="Button 2" styles={styles.button} />
-          <CustomButton title="Button 3" styles={styles.button} />
-          <CustomButton title="Button 4" styles={styles.button} />
-          <CustomButton title="Button 5" styles={styles.button} />
-          <CustomButton title="Button 6" styles={styles.button} />
-          <CustomButton title="Button 7" styles={styles.button} />
-          <CustomButton title="Button 8" styles={styles.button} />
-        </ScrollView>
-      </View>
-      <FlatList
-        data={people}
-        renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.cardText}>{item.name}</Text>
-          </View>
-        )}
-      />
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#f1f4f6'
+    flex: 1
   },
   textView: {
     height: 150,
-    backgroundColor: '#8fd1d2',
+    backgroundColor: '#e6e30c',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -60,7 +214,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   scrollViewWrapper: {
-    backgroundColor: '#146b8e',
+    backgroundColor: '#f3c323',
     paddingVertical: 10
   },
   scrollViewContent: {
@@ -75,14 +229,36 @@ const styles = StyleSheet.create({
     borderRadius: 50
   },
   card: {
-    backgroundColor: '#56c2c9',
+    backgroundColor: '#f8ffb9',
     margin: 10,
-    padding: 5
+    padding: 5,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    paddingHorizontal: 20
   },
   cardText: {
     fontSize: 40,
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+  userInputs: {
+    fontSize: 20,
+    padding: 5,
+    width: 300,
+    marginHorizontal: 'auto',
+    marginVertical: 10,
+    fontWeight: 'bold',
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'gray'
+  },
+  usersList: {
+    height: 400
   }
 });
 
