@@ -2,21 +2,22 @@ import {
   Alert,
   Button,
   FlatList,
-  Keyboard,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TextInput,
-  TouchableWithoutFeedback,
   View
 } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { changeColorHandler, userHandler } from './utils/handlers';
 
+import About from './screens/About';
 import CenterText from './components/CenterText';
 import CustomButton from './components/CustomButton';
+import Home from './screens/Home';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const App = () => {
   const [people, setPeople] = useState([
@@ -33,11 +34,14 @@ const App = () => {
   const [user, setUser] = useState({ name: '', age: '', id: null });
 
   const flatListRef = useRef(null);
-  console.log(people);
-
+  const Stack = createStackNavigator();
   return (
-    <>
-      <View style={styles.container}>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home}></Stack.Screen>
+        <Stack.Screen name="About" component={About}></Stack.Screen>
+      </Stack.Navigator>
+      {/* <View style={styles.container}>
         <View style={styles.textView}>
           <Text style={styles.text}>Ali Jahankah | Full-Stack Dev</Text>
         </View>
@@ -194,8 +198,8 @@ const App = () => {
             </View>
           )}
         />
-      </View>
-    </>
+      </View> */}
+    </NavigationContainer>
   );
 };
 
