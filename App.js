@@ -51,7 +51,8 @@ const App = () => {
           headerStyle: {
             backgroundColor: '#272626'
           },
-          headerTintColor: '#ffae00'
+          headerTintColor: '#ffae00',
+          headerTitleAlign: 'center'
         }}
       >
         <Stack.Screen name="Home" component={Home}></Stack.Screen>
