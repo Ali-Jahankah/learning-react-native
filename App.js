@@ -10,7 +10,7 @@ import {
   View
 } from 'react-native';
 // Only import react-native-gesture-handler on native platforms
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useTransition } from 'react';
 import { changeColorHandler, userHandler } from './utils/handlers';
 
 import About from './screens/About';
@@ -23,6 +23,7 @@ import {
   CardStyleInterpolators,
   createStackNavigator
 } from '@react-navigation/stack';
+import Details from './screens/Details';
 
 const App = () => {
   const [people, setPeople] = useState([
@@ -46,11 +47,20 @@ const App = () => {
         screenOptions={{
           gestureEnabled: true,
           gestureDirection: 'horizontal',
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          headerStyle: {
+            backgroundColor: '#272626'
+          },
+          headerTintColor: '#ffae00'
         }}
       >
         <Stack.Screen name="Home" component={Home}></Stack.Screen>
         <Stack.Screen name="About" component={About}></Stack.Screen>
+        <Stack.Screen
+          name="Details"
+          component={Details}
+          options={{ title: 'Info' }}
+        ></Stack.Screen>
       </Stack.Navigator>
       {/* <View style={styles.container}>
         <View style={styles.textView}>

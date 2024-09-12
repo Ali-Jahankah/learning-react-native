@@ -7,6 +7,12 @@ export default function Home({ navigation }) {
     <View style={styles.container}>
       <Text>Home</Text>
       <Button title="About" onPress={() => navigation.navigate('About')} />
+      <Button
+        title="Details"
+        onPress={() =>
+          navigation.navigate('Details', { name: 'Ali', surname: 'Jahankhah' })
+        }
+      />
     </View>
   );
 }
