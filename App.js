@@ -1,3 +1,4 @@
+import './gesture-handler';
 import {
   Alert,
   Button,
@@ -8,6 +9,7 @@ import {
   TextInput,
   View
 } from 'react-native';
+// Only import react-native-gesture-handler on native platforms
 import React, { useRef, useState } from 'react';
 import { changeColorHandler, userHandler } from './utils/handlers';
 
@@ -17,7 +19,10 @@ import CustomButton from './components/CustomButton';
 import Home from './screens/Home';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator
+} from '@react-navigation/stack';
 
 const App = () => {
   const [people, setPeople] = useState([
@@ -37,7 +42,13 @@ const App = () => {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+        }}
+      >
         <Stack.Screen name="Home" component={Home}></Stack.Screen>
         <Stack.Screen name="About" component={About}></Stack.Screen>
       </Stack.Navigator>
