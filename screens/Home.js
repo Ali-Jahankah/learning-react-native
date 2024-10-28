@@ -34,7 +34,6 @@ export default function Home({ navigation }) {
 
   return (
     <ScrollView style={styles.container}>
-      {/* UI Components for Header */}
       <Button title="About" onPress={() => navigation.navigate('About')} />
       <Button
         title="Details"
@@ -109,8 +108,6 @@ export default function Home({ navigation }) {
           setUser({ name: '', age: '', id: null });
         }}
       />
-
-      {/* FlatList for rendering user names only */}
       <FlatList
         ref={flatListRef}
         data={people}
@@ -128,8 +125,8 @@ export default function Home({ navigation }) {
             />
           </View>
         )}
-        contentContainerStyle={styles.contentContainer} // Apply layout styles here
-        scrollEnabled={false} // Disable FlatList scrolling
+        contentContainerStyle={styles.contentContainer}
+        scrollEnabled={false}
       />
     </ScrollView>
   );
