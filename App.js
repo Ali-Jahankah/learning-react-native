@@ -8,9 +8,13 @@ import {
 } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Details from './screens/Details';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+
 const App = () => {
   const Drawer = createDrawerNavigator();
-  // const Stack = createStackNavigator();
+  const Stack = createStackNavigator();
+  const Tab = createBottomTabNavigator();
   return (
     <>
       {/* <NavigationContainer>
@@ -36,7 +40,7 @@ const App = () => {
         </Stack.Navigator>
       </NavigationContainer> */}
 
-      <NavigationContainer>
+      {/* <NavigationContainer>
         <Drawer.Navigator
           screenOptions={{
             drawerStyle: {
@@ -54,6 +58,34 @@ const App = () => {
           <Drawer.Screen name="About" component={About} />
           <Drawer.Screen name="Details" component={Details} />
         </Drawer.Navigator>
+      </NavigationContainer> */}
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+              switch (route.name) {
+                case 'Home':
+                  iconName = focused ? 'home' : 'home-outline';
+                  break;
+                case 'About':
+                  iconName = focused
+                    ? 'information-circle'
+                    : 'information-circle-outline';
+                  break;
+                case 'Details':
+                  iconName = focused ? 'person' : 'person-outline';
+                  break;
+              }
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: '#ff8000'
+          })}
+        >
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="About" component={About} />
+          <Tab.Screen name="Details" component={Details} />
+        </Tab.Navigator>
       </NavigationContainer>
     </>
   );
