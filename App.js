@@ -10,10 +10,15 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Details from './screens/Details';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import Person2 from './screens/Person2';
+import Person1 from './screens/Person1';
+import People from './screens/People';
 
 const App = () => {
   const Drawer = createDrawerNavigator();
-  const Stack = createStackNavigator();
+  const HomeStack = createStackNavigator();
+  const PeopleStack = createStackNavigator();
+
   const Tab = createBottomTabNavigator();
   return (
     <>
@@ -68,23 +73,50 @@ const App = () => {
                 case 'Home':
                   iconName = focused ? 'home' : 'home-outline';
                   break;
-                case 'About':
-                  iconName = focused
-                    ? 'information-circle'
-                    : 'information-circle-outline';
-                  break;
-                case 'Details':
+                case 'People':
                   iconName = focused ? 'person' : 'person-outline';
                   break;
+                // case 'Details':
+                //   iconName = focused ? 'person' : 'person-outline';
+                //   break;
               }
               return <Ionicons name={iconName} size={size} color={color} />;
             },
-            tabBarActiveTintColor: '#ff8000'
+            tabBarActiveTintColor: '#ff8000',
+            tabBarStyle: {
+              backgroundColor: '#9dfaf0'
+            },
+            headerShown: false
           })}
         >
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="About" component={About} />
-          <Tab.Screen name="Details" component={Details} />
+          <Tab.Screen name="Home">
+            {() => (
+              <HomeStack.Navigator>
+                <HomeStack.Screen
+                  name="About"
+                  component={About}
+                ></HomeStack.Screen>
+                <HomeStack.Screen
+                  name="Details"
+                  component={Details}
+                ></HomeStack.Screen>
+              </HomeStack.Navigator>
+            )}
+          </Tab.Screen>
+          <Tab.Screen name="People">
+            {() => (
+              <PeopleStack.Navigator>
+                <PeopleStack.Screen
+                  name="Person1"
+                  component={Person1}
+                ></PeopleStack.Screen>
+                <PeopleStack.Screen
+                  name="Person2"
+                  component={Person2}
+                ></PeopleStack.Screen>
+              </PeopleStack.Navigator>
+            )}
+          </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
     </>

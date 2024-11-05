@@ -2,20 +2,11 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 
 import React from 'react';
 
-export default function About({ navigation }) {
+export default function People({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>About</Text>
+      <Text>People</Text>
       <Button title="Details" onPress={() => navigation.navigate('Details')} />
-      {/* <Button
-        title="Push 'About' page"
-        onPress={() => navigation.push('About')}
-      />
-      <Button
-        title="Return to previous page"
-        onPress={() => navigation.goBack()}
-      />
-      <Button title="Pop to top" onPress={() => navigation.popToTop()} /> */}
     </View>
   );
 }
