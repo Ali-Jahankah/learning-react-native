@@ -6,6 +6,7 @@ import {
   CardStyleInterpolators,
   createStackNavigator
 } from '@react-navigation/stack';
+import TestModal from './screens/TestModal';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Details from './screens/Details';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -105,7 +106,7 @@ const App = () => {
           </Tab.Screen>
           <Tab.Screen name="People">
             {() => (
-              <PeopleStack.Navigator>
+              <PeopleStack.Navigator screenOptions={{ presentation: 'modal' }}>
                 <PeopleStack.Screen
                   name="Person1"
                   component={Person1}
@@ -113,6 +114,11 @@ const App = () => {
                 <PeopleStack.Screen
                   name="Person2"
                   component={Person2}
+                ></PeopleStack.Screen>
+                <PeopleStack.Screen
+                  name="TestModal"
+                  component={TestModal}
+                  options={{ headerShown: false }}
                 ></PeopleStack.Screen>
               </PeopleStack.Navigator>
             )}

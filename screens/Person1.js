@@ -7,6 +7,7 @@ export default function Person1({ navigation }) {
     <View style={styles.container}>
       <Text>Person1</Text>
       <Button title="Person2" onPress={() => navigation.navigate('Person2')} />
+      <Button title="Modal" onPress={() => navigation.navigate('TestModal')} />
     </View>
   );
 }
