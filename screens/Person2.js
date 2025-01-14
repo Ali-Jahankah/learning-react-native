@@ -20,7 +20,7 @@ export default function Person2({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    background: 'red',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center'
   }

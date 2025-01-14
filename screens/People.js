@@ -1,7 +1,6 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 import React from 'react';
-
 export default function People({ navigation }) {
   return (
     <View style={styles.container}>
@@ -13,7 +12,7 @@ export default function People({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    background: 'red',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center'
   }

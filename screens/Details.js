@@ -24,7 +24,7 @@ export default function Details({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    background: 'red',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center'
   }
